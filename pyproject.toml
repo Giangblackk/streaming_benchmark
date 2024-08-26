@@ -7,6 +7,8 @@ requires-python = ">=3.9"
 dependencies = [
     "dbldatagen>=0.4.0.post1",
     "pyspark[connect]==3.5.1",
+    "jmespath>=1.0.1",
+    "pyparsing>=3.1.4",
 ]
 
 [build-system]
