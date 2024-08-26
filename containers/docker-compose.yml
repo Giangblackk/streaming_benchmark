@@ -62,3 +62,14 @@ services:
       - 8080:8080
     depends_on:
       - redpanda-0
+  spark-connect:
+    container_name: spark-connect
+    image: spark:3.5.1-python3
+    build:
+      context: ./spark
+      dockerfile: Dockerfile
+    networks:
+      - redpanda_network
+    ports:
+      - "15002:15002"
+      - "4040:4040"
