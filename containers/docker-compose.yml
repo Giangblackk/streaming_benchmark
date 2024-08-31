@@ -1,6 +1,5 @@
-name: redpanda-quickstart-one-broker
 networks:
-  redpanda_network:
+  streaming_benchmark_network:
     driver: bridge
 volumes:
   redpanda-0: null
@@ -33,7 +32,7 @@ services:
     volumes:
       - redpanda-0:/var/lib/redpanda/data
     networks:
-      - redpanda_network
+      - streaming_benchmark_network
     ports:
       - 18081:18081
       - 18082:18082
@@ -43,7 +42,7 @@ services:
     container_name: redpanda-console
     image: docker.redpanda.com/redpandadata/console:v2.3.1
     networks:
-      - redpanda_network
+      - streaming_benchmark_network
     entrypoint: /bin/sh
     command: -c 'echo "$$CONSOLE_CONFIG_FILE" > /tmp/config.yml; /app/console'
     environment:
@@ -62,14 +61,25 @@ services:
       - 8080:8080
     depends_on:
       - redpanda-0
-  spark-connect:
-    container_name: spark-connect
+  data-producer-consumer:
+    container_name: data-producer-consumer
     image: spark:3.5.1-python3
     build:
       context: ./spark
       dockerfile: Dockerfile
     networks:
-      - redpanda_network
+      - streaming_benchmark_network
     ports:
       - "15002:15002"
       - "4040:4040"
+  data-pipeline-engine:
+    container_name: data-pipeline-engine
+    image: spark:3.5.1-python3
+    build:
+      context: ./spark
+      dockerfile: Dockerfile
+    networks:
+      - streaming_benchmark_network
+    ports:
+      - "15003:15002"
+      - "4041:4040"
