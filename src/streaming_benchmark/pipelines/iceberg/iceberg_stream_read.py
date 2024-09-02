@@ -8,7 +8,6 @@ spark = (
 
 df = (
     spark.readStream.format("iceberg")
-    .option("stream-from-timestamp", "0000000000000")
     .load("database.kafka_topic")
 )
 

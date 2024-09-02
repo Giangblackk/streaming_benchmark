@@ -10,6 +10,7 @@ df = (
     spark.readStream.format("kafka")
     .option("kafka.bootstrap.servers", "redpanda-0:9092")
     .option("subscribe", "source-topic")
+    .option("startingOffsets", "earliest")
     .load()
 )
 
