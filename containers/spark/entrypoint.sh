@@ -4,6 +4,8 @@ echo "Starting Spark Connect Server"
 
 bash /opt/spark/sbin/start-connect-server.sh \
     --packages org.apache.spark:spark-connect_2.12:3.5.1,org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.6.1,org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.1 \
+    --jars /opt/spark/jars/postgresql-42.7.4.jar \
+    --driver-class-path /opt/spark/jars/postgresql-42.7.4.jar \
     --conf spark.sql.extensions=org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions \
     --conf spark.sql.catalog.spark_catalog=org.apache.iceberg.spark.SparkSessionCatalog \
     --conf spark.sql.catalog.spark_catalog.type=hive \
