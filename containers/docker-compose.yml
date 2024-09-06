@@ -3,6 +3,7 @@ networks:
     driver: bridge
 volumes:
   redpanda-0: null
+  grafana-storage: null
 services:
   redpanda-0:
     command:
@@ -83,3 +84,21 @@ services:
     ports:
       - "15003:15002"
       - "4041:4040"
+  timescaledb:
+    container_name: timescaledb
+    image: timescale/timescaledb:latest-pg16
+    environment:
+      - POSTGRES_PASSWORD=changethispassword
+    networks:
+      - streaming_benchmark_network
+    ports:
+      - "5432:5432"
+  grafana:
+    container_name: grafana
+    image: grafana/grafana-enterprise:latest
+    volumes:
+      - grafana-storage:/var/lib/grafana:rw
+    networks:
+      - streaming_benchmark_network
+    ports:
+      - "3000:3000"
