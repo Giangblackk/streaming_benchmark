@@ -1,10 +1,12 @@
 from pyspark.sql import SparkSession
 
-spark = (
+spark: SparkSession = (
     SparkSession.builder.appName("iceberg_stream_write")
     .remote("sc://localhost:15003")
     .getOrCreate()
 )
+
+spark.catalog.setCurrentCatalog("nessie")
 
 df = (
     spark.readStream.format("kafka")
@@ -17,5 +19,5 @@ df = (
 df.selectExpr("key as id", "CAST(value as STRING)").writeStream.format(
     "iceberg"
 ).outputMode("append").option("checkpointLocation", "/opt/spark/checkpoint").toTable(
-    "database.kafka_topic"
+    "kafka_topic"
 )

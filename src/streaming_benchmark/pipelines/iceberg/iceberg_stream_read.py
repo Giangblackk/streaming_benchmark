@@ -1,14 +1,16 @@
 from pyspark.sql import SparkSession
 
-spark = (
+spark: SparkSession = (
     SparkSession.builder.appName("iceberg_stream_read")
     .remote("sc://localhost:15003")
     .getOrCreate()
 )
 
+spark.catalog.setCurrentCatalog("nessie")
+
 df = (
     spark.readStream.format("iceberg")
-    .load("database.kafka_topic")
+    .load("kafka_topic")
 )
 
 df.selectExpr("id as key", "value").writeStream.format("kafka").option(
