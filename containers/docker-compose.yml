@@ -68,6 +68,12 @@ services:
     build:
       context: ./spark
       dockerfile: Dockerfile
+      cache_from:
+        - streaming_benchmark:latest
+    environment:
+      - AWS_ACCESS_KEY_ID=admin
+      - AWS_SECRET_ACCESS_KEY=changethispassword
+      - AWS_REGION=us-east-1
     networks:
       - streaming_benchmark_network
     ports:
@@ -79,6 +85,12 @@ services:
     build:
       context: ./spark
       dockerfile: Dockerfile
+      cache_from:
+        - streaming_benchmark:latest
+    environment:
+      - AWS_ACCESS_KEY_ID=admin
+      - AWS_SECRET_ACCESS_KEY=changethispassword
+      - AWS_REGION=us-east-1
     networks:
       - streaming_benchmark_network
     ports:
@@ -102,3 +114,27 @@ services:
       - streaming_benchmark_network
     ports:
       - "3000:3000"
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=changethispassword
+      - MINIO_DOMAIN=storage
+      - MINIO_REGION_NAME=us-east-1
+      - MINIO_REGION=us-east-1
+    networks:
+      streaming_benchmark_network:
+        aliases:
+          - minio.minio
+    ports:
+      - 9001:9001
+      - 9000:9000
+    command: ["server", "/data", "--console-address", ":9001"]
+  nessie:
+    image: projectnessie/nessie:latest
+    container_name: nessie
+    networks:
+      - streaming_benchmark_network
+    ports:
+      - 19120:19120
