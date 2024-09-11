@@ -8,10 +8,7 @@ spark: SparkSession = (
 
 spark.catalog.setCurrentCatalog("nessie")
 
-df = (
-    spark.readStream.format("iceberg")
-    .load("kafka_topic")
-)
+df = spark.readStream.format("iceberg").load("kafka_topic")
 
 df.selectExpr("id as key", "value").writeStream.format("kafka").option(
     "kafka.bootstrap.servers", "redpanda-0:9092"

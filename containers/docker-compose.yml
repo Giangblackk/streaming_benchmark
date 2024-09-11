@@ -64,12 +64,7 @@ services:
       - redpanda-0
   data-producer-consumer:
     container_name: data-producer-consumer
-    image: spark:3.5.1-python3
-    build:
-      context: ./spark
-      dockerfile: Dockerfile
-      cache_from:
-        - streaming_benchmark:latest
+    image: streaming_benchmark:latest
     environment:
       - AWS_ACCESS_KEY_ID=admin
       - AWS_SECRET_ACCESS_KEY=changethispassword
@@ -81,12 +76,7 @@ services:
       - "4040:4040"
   data-pipeline-engine:
     container_name: data-pipeline-engine
-    image: spark:3.5.1-python3
-    build:
-      context: ./spark
-      dockerfile: Dockerfile
-      cache_from:
-        - streaming_benchmark:latest
+    image: streaming_benchmark:latest
     environment:
       - AWS_ACCESS_KEY_ID=admin
       - AWS_SECRET_ACCESS_KEY=changethispassword
@@ -132,9 +122,23 @@ services:
       - 9000:9000
     command: ["server", "/data", "--console-address", ":9001"]
   nessie:
-    image: projectnessie/nessie:latest
+    image: ghcr.io/projectnessie/nessie:0.96.0
     container_name: nessie
     networks:
       - streaming_benchmark_network
     ports:
       - 19120:19120
+    environment:
+      - nessie.version.store.type=IN_MEMORY
+      - nessie.server.authentication.enabled=false
+      # Object store settings.
+      # This example uses MinIO as the object store.
+      - nessie.catalog.default-warehouse=warehouse
+      - nessie.catalog.warehouses.warehouse.location=s3://minio/warehouse
+      - nessie.catalog.service.s3.default-options.region=us-east-1
+      - nessie.catalog.service.s3.default-options.path-style-access=true
+      - nessie.catalog.service.s3.default-options.access-key=urn:nessie-secret:quarkus:nessie.catalog.secrets.access-key
+      - nessie.catalog.secrets.access-key.name=admin
+      - nessie.catalog.secrets.access-key.secret=changethispassword
+      # MinIO endpoint for Nessie server
+      - nessie.catalog.service.s3.default-options.endpoint=http://minio:9000/
