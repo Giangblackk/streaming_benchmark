@@ -11,7 +11,7 @@ bash /opt/spark/sbin/start-connect-server.sh \
     --conf spark.sql.catalog.nessie.warehouse=s3://minio/warehouse \
     --conf spark.sql.catalog.nessie.s3.endpoint=http://minio:9000 \
     --conf spark.sql.catalog.nessie.catalog-impl=org.apache.iceberg.nessie.NessieCatalog \
-    --conf spark.sql.catalog.nessie.io-impl=org.apache.iceberg.aws.s3.S3FileIO \
+    --conf spark.sql.catalog.nessie.io-impl=org.apache.iceberg.io.ResolvingFileIO \
     --conf spark.sql.catalog.nessie.uri=http://nessie:19120/api/v1 \
     --conf spark.sql.catalog.nessie.ref=main \
     --conf spark.sql.catalog.nessie.cache-enabled=false
