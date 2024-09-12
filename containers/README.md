@@ -2,5 +2,5 @@
 
 ```bash
 cd containers
-docker build -t streaming_benchmark:latest ./spark
+docker build -t streaming_benchmark:latest --platform=linux/amd64 ./spark
 ```
