@@ -15,9 +15,9 @@ Tools to benchmark end-to-end latency of a stream processing pipeline using Kafk
 7. Setup Dashboard to query database and visualize average latency over time
 
 ### TODO
-- [ ] Iceberg + Minio
-- [ ] Iceberg Catalog
-- [ ] Iceberg Query UI
+- [x] Iceberg + Minio
+- [x] Iceberg Catalog (Nessie)
+- [x] Iceberg Query engine + Query UI (Dremio)
 
 ### Screenshots
 
