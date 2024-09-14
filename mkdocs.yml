@@ -1,0 +1,4 @@
+site_name: Steaming Benchmark
+site_url: https://streaming_benchmark.github.io/
+theme:
+  name: material

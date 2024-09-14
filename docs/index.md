@@ -1,9 +1,10 @@
-# Streaming End-to-End Latency Benchmarking
+# Streaming Benchmark
+
 Tools to benchmark end-to-end latency of a stream processing pipeline using Kafka/Redpanda
 
 ## Setup for Benchmarking Apache Iceberg
 
-![Overall Design](<docs/images/Kafka end-to-end Latency Measuring Framework.excalidraw.png>)
+![Overall Design](<images/Kafka end-to-end Latency Measuring Framework.excalidraw.png>)
 
 ### Steps
 1. Data generator and write generated data to `source-topic` Kafka topic
@@ -22,7 +23,7 @@ Tools to benchmark end-to-end latency of a stream processing pipeline using Kafk
 ### Screenshots
 
 #### Average latency dashboard
-![AVG Latency Dashboard](docs/images/grafana_streaming_latency_chart.png)
+![AVG Latency Dashboard](images/grafana_streaming_latency_chart.png)
 
 #### Setup dashboard
-![Setup Dashboard using query](docs/images/grafana_streaming_latency_chart_edit.png)
+![Setup Dashboard using query](images/grafana_streaming_latency_chart_edit.png)
