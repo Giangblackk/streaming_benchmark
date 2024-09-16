@@ -6,6 +6,14 @@ Tools to benchmark end-to-end latency of a stream processing pipeline using Kafk
 
 ![Overall Design](<images/Kafka end-to-end Latency Measuring Framework.excalidraw.png>)
 
+### Components
+- **A**: Adjustable workload generator
+- **B**: Source topic (Kakfa compatible)
+- **C**: Sink topic (Kafka compatible)
+- **D**: Message matching and latency measurement
+- **E**: Time-series database
+- **F**: Latency monitoring dashboard
+
 ### Steps
 1. Data generator and write generated data to `source-topic` Kafka topic
 2. Streaming read from `source-topic` Kafka topic and streaming write to Iceberg table `kafka_topic`
