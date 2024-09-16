@@ -2,3 +2,6 @@ site_name: Steaming Benchmark
 site_url: https://streaming_benchmark.github.io/
 theme:
   name: material
+markdown_extensions:
+  - pymdownx.tasklist:
+      custom_checkbox: true
