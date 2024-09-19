@@ -26,6 +26,10 @@ Tools to benchmark end-to-end latency of a stream processing pipeline using Kafk
 - [x] Iceberg + Minio
 - [x] Iceberg Catalog (Nessie)
 - [x] Iceberg Query engine + Query UI (Dremio)
+- [ ] Separate resources for streaming benchmark and streaming data pipeline framework (easier to reuse and compare between streaming solutions)
+- [ ] Define resources in Kubernetes resources for better resource control, easier to scale up for testing higher workload, dynamically scale up/down resources for testing streaming pipeline behavior.
+- [ ] Write script to automate process of spin up streaming benchmark resources.
+- [ ] Write docs for end users to get started, customize, extend.
 
 ### Screenshots
 
