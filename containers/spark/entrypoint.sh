@@ -15,6 +15,8 @@ bash /opt/spark/sbin/start-connect-server.sh \
     --conf spark.sql.catalog.nessie.io-impl=org.apache.iceberg.io.ResolvingFileIO \
     --conf spark.sql.catalog.nessie.uri=http://nessie:19120/api/v1 \
     --conf spark.sql.catalog.nessie.ref=main \
-    --conf spark.sql.catalog.nessie.cache-enabled=false
+    --conf spark.sql.catalog.nessie.cache-enabled=false \
+    --conf spark.streaming.stopGracefullyOnShutdown=true \
+    --conf spark.decommission.enabled=true
 
 sleep infinity
