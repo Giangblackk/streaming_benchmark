@@ -1,7 +1,7 @@
 import time
 import dbldatagen as dg
 from pyspark.sql.types import IntegerType, StringType
-from pyspark.sql import SparkSession
+from pyspark.sql import SparkSession, DataFrame
 
 spark = (
     SparkSession.builder.appName("simple_data_gen")
@@ -25,21 +25,22 @@ testDataSpec = (
     )
 )
 
-dfTestData = testDataSpec.build(
+dfTestData: DataFrame = testDataSpec.build(
     options={"rowsPerSecond": row_per_sec}, withStreaming=True
 )
 
-dfTestData.selectExpr(
-    "CAST(id as STRING) as key",
-    "CAST(CONCAT_WS('-', CAST(code1 as STRING), code2) AS STRING) as value",
-).writeStream.format("kafka").option(
-    "kafka.bootstrap.servers", "redpanda-0:9092"
-).option("topic", "source-topic").option(
-    "checkpointLocation", "/opt/spark/checkpoint"
-).start()
+streaming_query = (
+    dfTestData.selectExpr(
+        "CAST(id as STRING) as key",
+        "CAST(CONCAT_WS('-', CAST(code1 as STRING), code2) AS STRING) as value",
+    )
+    .writeStream.format("kafka")
+    .option("kafka.bootstrap.servers", "redpanda-0:9092")
+    .option("topic", "source-topic")
+    .option("checkpointLocation", "/opt/spark/checkpoint")
+    .start()
+)
 
 time.sleep(sec_to_run)
 
-for s in spark.streams.active:
-    print(s)
-    s.stop()
+streaming_query.stop()
