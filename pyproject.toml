@@ -9,6 +9,7 @@ dependencies = [
     "pyspark[connect]==3.5.1",
     "jmespath>=1.0.1",
     "pyparsing>=3.1.4",
+    "typer>=0.12.5",
 ]
 
 [build-system]
@@ -19,4 +20,5 @@ build-backend = "hatchling.build"
 dev-dependencies = [
     "ruff>=0.6.2",
     "mkdocs-material>=9.5.34",
+    "isort>=5.13.2",
 ]
