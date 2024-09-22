@@ -22,3 +22,6 @@ dev-dependencies = [
     "mkdocs-material>=9.5.34",
     "isort>=5.13.2",
 ]
+
+[project.scripts]
+simple_data_gen = "streaming_benchmark.generators.simple_data_gen:app"

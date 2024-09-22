@@ -6,7 +6,9 @@ from pyspark.sql import DataFrame, SparkSession
 from pyspark.sql.types import IntegerType, StringType
 from typing_extensions import Annotated
 
+app = typer.Typer()
 
+@app.command()
 def simple_data_gen(
     app_name: Annotated[
         str, typer.Option("-n", "--name", help="Spark app name")
@@ -79,4 +81,4 @@ def simple_data_gen(
 
 
 if __name__ == "__main__":
-    typer.run(simple_data_gen)
+    app()
