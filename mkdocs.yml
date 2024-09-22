@@ -1,7 +1,22 @@
 site_name: Steaming Benchmark
 site_url: https://streaming_benchmark.github.io/
+
 theme:
   name: material
+
 markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
+
+plugins:
+  - search
+  - mkdocstrings
+
+nav:
+  - index.md
+  - Get started: getting-started.md
+  - Install Guide: installation.md
+  - System Design: system-design.md
+  - Benchark your own: benchmark-your-own.md
+  - API reference: api-reference.md
+  

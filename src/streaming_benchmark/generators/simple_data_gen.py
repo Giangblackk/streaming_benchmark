@@ -45,6 +45,18 @@ def simple_data_gen(
         ),
     ] = "/opt/spark/checkpoint",
 ):
+    """Simple data generator script using Databricks `dbldatagen` library
+
+    Args:
+        app_name (str, optional): Spark app name. Default to "simple_data_gen".
+        spark_remote (str, optional): URL to remote Spark Connect server. Default to "sc://localhost".
+        row_per_sec (int, optional): Number of generated row of data per seconds. Default to 1.
+        num_partitions (int, optional): Number of partitions in data generation process. Default to 1.
+        sec_to_run (int, optional): Number of seconds to run data generation". Default to 60.
+        bootstrap_servers (str, optional): List of Kafka/Redpanda boostrap servers, separated by comma. Default to "redpanda-0:9092".
+        source_topic_name (str, optional): Name of source Kafka topic". Default to "source-topic".
+        checkpoint_location (str, optional): Location of checkpoint folder of Spark application. Default to "/opt/spark/checkpoint".
+    """    
     spark = SparkSession.builder.appName(app_name).remote(spark_remote).getOrCreate()
 
     testDataSpec = (
