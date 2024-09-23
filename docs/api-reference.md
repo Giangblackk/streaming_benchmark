@@ -23,3 +23,11 @@
         - iceberg_streaming_write
       show_root_heading: true
       show_source: true
+
+::: streaming_benchmark.reconcile.latency_streaming
+    handler: python
+    options:
+      members:
+        - latency_streaming_report
+      show_root_heading: true
+      show_source: true
