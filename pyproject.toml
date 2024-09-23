@@ -26,3 +26,5 @@ dev-dependencies = [
 
 [project.scripts]
 simple_data_gen = "streaming_benchmark.generators.simple_data_gen:app"
+iceberg_stream_read = "streaming_benchmark.pipelines.iceberg.iceberg_stream_read:app"
+iceberg_stream_write = "streaming_benchmark.pipelines.iceberg.iceberg_stream_write:app"
